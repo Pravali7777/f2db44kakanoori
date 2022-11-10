@@ -81,14 +81,14 @@ Peacock({feathers:"white",  legs:2,
 gender:"female"}); 
   instance2.save( function(err,doc) { 
       if(err) return console.error(err); 
-      console.log("First object saved") 
+      console.log("Second object saved") 
   }); 
   let instance3 = new 
   Peacock({feathers:"white",  legs:5, 
   gender:"male"}); 
     instance3.save( function(err,doc) { 
         if(err) return console.error(err); 
-        console.log("First object saved") 
+        console.log("Third object saved") 
     }); 
   
 } 

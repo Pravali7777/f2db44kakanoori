@@ -5,5 +5,5 @@ const peacockSchema = mongoose.Schema({
  gender: String
 }) 
  
-module.exports = mongoose.model("peacock", 
+module.exports = mongoose.model("Peacock", 
 peacockSchema) 
