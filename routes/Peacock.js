@@ -17,6 +17,10 @@ module.exports = router;
 /* GET detail peacock page */ 
 router.get('/detail', peacock_controlers.peacock_view_one_Page);
 
+/* GET create peacock page */ 
+router.get('/create', peacock_controlers.peacock_create_Page); 
+ 
+
 
  
  
