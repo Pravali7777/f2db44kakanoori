@@ -13,3 +13,10 @@ var router = express.Router();
 /* GET peacocks */ 
 router.get('/', peacock_controlers.peacock_view_all_Page ); 
 module.exports = router; 
+
+/* GET detail peacock page */ 
+router.get('/detail', peacock_controlers.peacock_view_one_Page);
+
+
+ 
+ 

@@ -1,0 +1,22 @@
+extends layout 
+ 
+block content 
+  h1= title 
+ 
+  - let peacockid = toShow._id 
+  - let peacockfeather = toShow.feathers 
+  - let peacocklegs = toShow.legs 
+  - let peacockgender = toShow.gender 
+  div 
+    div.row 
+      div(class='peacockAttr mr-3') Peacock ID is: 
+      div #{peacockid} 
+    div.row 
+      div(class='peacockAttr mr-3') Peacock Feather is: 
+      div #{peacockfeather} 
+    div.row 
+      div(class='peacockAttr mr-3') Peacock Legs is: 
+      div #{peacocklegs} 
+    div.row 
+      div(class='peacockAttr mr-3') Peacock Gender is: 
+      div #{peacockgender} 

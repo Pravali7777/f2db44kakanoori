@@ -5,9 +5,16 @@ exports.peacock_list = function(req, res) {
     res.send('NOT IMPLEMENTED: Peacock list'); 
 }; 
  
-// for a specific Peacock. 
-exports.peacock_detail = function(req, res) { 
-    res.send('NOT IMPLEMENTED: Peacock detail: ' + req.params.id); 
+// for a specific Costume. 
+exports.peacock_detail = async function(req, res) { 
+    console.log("detail"  + req.params.id) 
+    try { 
+        result = await Peacock.findById( req.params.id) 
+        res.send(result) 
+    } catch (error) { 
+        res.status(500) 
+        res.send(`{"error": document for id ${req.params.id} not found`); 
+    } 
 }; 
  
 // Handle Peacock create on POST. 
@@ -67,4 +74,52 @@ exports.peacock_create_post = async function(req, res) {
         res.status(500); 
         res.send(`{"error": ${err}}`); 
     }   
+}; 
+
+// Handle Costume update form on PUT. 
+exports.peacock_update_put = async function(req, res) { 
+    console.log(`update on id ${req.params.id} with body 
+${JSON.stringify(req.body)}`) 
+    try { 
+        let toUpdate = await Peacock.findById( req.params.id) 
+        // Do updates of properties 
+        if(req.body.feathers)  
+               toUpdate.feathers = req.body.feathers; 
+        if(req.body.legs) toUpdate.cost = req.body.legs; 
+        if(req.body.gender) toUpdate.gender = req.body.gender; 
+        let result = await toUpdate.save(); 
+        console.log("Sucess " + result) 
+        res.send(result) 
+    } catch (err) { 
+        res.status(500) 
+        res.send(`{"error": ${err}: Update for id ${req.params.id} 
+failed`); 
+    } 
+}; 
+
+// Handle Peacock delete on DELETE. 
+exports.peacock_delete = async function(req, res) { 
+    console.log("delete "  + req.params.id) 
+    try { 
+        result = await Peacock.findByIdAndDelete( req.params.id) 
+        console.log("Removed " + result) 
+        res.send(result) 
+    } catch (err) { 
+        res.status(500) 
+        res.send(`{"error": Error deleting ${err}}`); 
+    } 
+}; 
+
+// Handle a show one view with id specified by query 
+exports.peacock_view_one_Page = async function(req, res) { 
+    console.log("single view for id "  + req.query.id) 
+    try{ 
+        result = await Peacock.findById( req.query.id) 
+        res.render('peacockdetail',  
+{ title: 'Peacock Detail', toShow: result }); 
+    } 
+    catch(err){ 
+        res.status(500) 
+        res.send(`{'error': '${err}'}`); 
+    } 
 }; 
