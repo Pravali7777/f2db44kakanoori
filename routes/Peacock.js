@@ -19,8 +19,9 @@ router.get('/detail', peacock_controlers.peacock_view_one_Page);
 
 /* GET create peacock page */ 
 router.get('/create', peacock_controlers.peacock_create_Page); 
- 
 
+/* GET create update page */ 
+router.get('/update', peacock_controlers.peacock_update_Page);  
 
  
  
