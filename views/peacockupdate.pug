@@ -2,6 +2,9 @@ extends layout
  
 block content 
   h1= title 
+  if(toShow==null)
+    h2 No instance to Update 
+  else
  
   - let peacockid = toShow._id 
   - let peacock_type = toShow.feathers 

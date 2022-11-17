@@ -1,7 +1,10 @@
 extends layout 
  
 block content 
-  h1= title 
+  h1= title
+  if(toShow==null)
+    h2 No instance to Detail 
+  else
  
   - let peacockid = toShow._id 
   - let peacockfeather = toShow.feathers 
@@ -9,14 +12,14 @@ block content
   - let peacockgender = toShow.gender 
   div 
     div.row 
-      div(class='peacockAttr mr-3') Peacock ID is: 
+      div(class='peacockStyle mr-3') Peacock ID is: 
       div #{peacockid} 
     div.row 
-      div(class='peacockAttr mr-3') Peacock Feather is: 
+      div(class='peacockStyle mr-3') Peacock Feather is: 
       div #{peacockfeather} 
     div.row 
-      div(class='peacockAttr mr-3') Peacock Legs is: 
+      div(class='peacockStyle mr-3') Peacock Legs is: 
       div #{peacocklegs} 
     div.row 
-      div(class='peacockAttr mr-3') Peacock Gender is: 
+      div(class='peacockStyle mr-3') Peacock Gender is: 
       div #{peacockgender} 

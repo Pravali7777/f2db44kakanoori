@@ -23,5 +23,6 @@ router.get('/create', peacock_controlers.peacock_create_Page);
 /* GET create update page */ 
 router.get('/update', peacock_controlers.peacock_update_Page);  
 
- 
+ /* GET delete peacock page */ 
+router.get('/delete', peacock_controlers.peacock_delete_Page); 
  
