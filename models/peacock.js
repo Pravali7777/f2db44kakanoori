@@ -1,7 +1,10 @@
 const mongoose = require("mongoose") 
 const peacockSchema = mongoose.Schema({ 
  feathers: String, 
- legs: Number, 
+ legs:{
+    type:Number,
+    min: 4,
+    max: 12 },
  gender: String
 }) 
  

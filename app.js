@@ -6,18 +6,18 @@ var logger = require('morgan');
 var passport = require('passport'); 
 var LocalStrategy = require('passport-local').Strategy; 
 
-passport.use(new LocalStrategy( 
-  function(username, password, done) { 
-    Account.findOne({ username: username }, function (err, user) { 
-      if (err) { return done(err); } 
-      if (!user) { 
-        return done(null, false, { message: 'Incorrect username.' }); 
-      } 
-      if (!user.validPassword(password)) { 
-        return done(null, false, { message: 'Incorrect password.' }); 
-      } 
-      return done(null, user); 
-    })}));
+// passport.use(new LocalStrategy( 
+//   function(username, password, done) { 
+//     Account.findOne({ username: username }, function (err, user) { 
+//       if (err) { return done(err); } 
+//       if (!user) { 
+//         return done(null, false, { message: 'Incorrect username.' }); 
+//       } 
+//       if (!user.validPassword(password)) { 
+//         return done(null, false, { message: 'Incorrect password.' }); 
+//       } 
+//       return done(null, user); 
+//     })}));
 
 require('dotenv').config(); 
 const connectionString =  
@@ -34,7 +34,7 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 db.once("open", function(){ 
   console.log("Connection to DB succeeded")}); 
 
-  var Peacock = require("./models/peacock"); 
+var Peacock = require("./models/peacock"); 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var PeacockRouter = require('./routes/peacock');
@@ -52,6 +52,13 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(require('express-session')({ 
+  secret: 'keyboard cat', 
+  resave: false, 
+  saveUninitialized: false 
+})); 
+app.use(passport.initialize()); 
+app.use(passport.session());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
@@ -60,13 +67,7 @@ app.use('/Peacock', PeacockRouter);
 app.use('/gridbuild', gridbuildRouter);
 app.use('/selector', selectorRouter);
 app.use('/resource', resourceRouter);
-app.use(require('express-session')({ 
-  secret: 'keyboard cat', 
-  resave: false, 
-  saveUninitialized: false 
-})); 
-app.use(passport.initialize()); 
-app.use(passport.session());
+
 
 // passport config 
 // Use the existing connection 
@@ -93,7 +94,7 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-module.exports = app;
+
 // We can seed the collection if needed on server start 
 async function recreateDB(){ 
   // Delete everything 
@@ -107,7 +108,7 @@ gender:"female"});
       console.log("First object saved") 
   }); 
   let instance2 = new 
-Peacock({feathers:"white",  legs:2, 
+Peacock({feathers:"white",  legs:6, 
 gender:"female"}); 
   instance2.save( function(err,doc) { 
       if(err) return console.error(err); 
@@ -126,4 +127,4 @@ gender:"female"});
 let reseed = true; 
 if (reseed) { recreateDB();} 
  
-
+module.exports = app;

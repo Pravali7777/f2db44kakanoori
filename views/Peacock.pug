@@ -2,13 +2,19 @@ extends layout
 block content
   h1= title
   //- let results=[{feathers:"white", legs:7, gender:"female"},{feathers:"white", legs:2, gender:"female"},{feathers:"white", legs:5, gender:"male"}]
+  - let Create = `dispatch(\"/peacock/create\")`
+  button.btn( class="btn-primary ml-1", onclick= Create) Create
   - let items = results
   div(class="container-fluid") 
     div(class="row m-1") 
       each item in items  
         - let destination = `dispatch(\"/peacock/update?id=${item._id}\")` 
+        - let detail = `dispatch(\"/peacock/detail?id=${item._id}\")`
+        - let Delete = `dispatch(\"/search/delete?id=${item._id}\")`
         div(class="row-sm-2", class="m-1") Peacock feather's #{item.feathers}; it has #{item.legs} legs; It's gender is #{item.gender} 
           button.btn( class="btn-primary ml-1", onclick= destination) Update 
+          button.btn( class="btn-primary ml-1", onclick= detail) Details
+          button.btn( class="btn-primary ml-1", onclick= Delete) Delete
    
   script. 
     function dispatch(path){ 
